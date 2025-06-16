@@ -1,0 +1,82 @@
+<div class="login-container">
+  <h2>Login with Email</h2>
+
+  <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+    <div class="form-group">
+      <label for="email">Email Address</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        required
+        email
+        [(ngModel)]="email"
+        #emailCtrl="ngModel"
+        placeholder="Enter your email"
+        [class.invalid]="emailCtrl.invalid && (emailCtrl.dirty || emailCtrl.touched)"
+      >
+    </div>
+    <div *ngIf="emailCtrl.invalid && emailCtrl.touched" class="error-text">
+      {{ emailCtrl.errors?.['required'] ? 'Email required' : 'Invalid email format' }}
+    </div>
+
+    <button
+      type="submit"
+      class="login-button"
+    >
+      Submit
+    </button>
+  </form>
+</div>
+<div *ngIf="showDetails">
+<div class="table-container">
+  <h2>User Details</h2>
+
+  <table class="user-table">
+    <thead>
+      <tr>
+        <th>Tenant Id</th>
+        <th>Name</th>
+        <th>Phone</th>
+        <th>Email</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of data">
+  <td>{{ user.id }}</td>
+
+  <td *ngIf="!user.isEditing">{{ user.name }}</td>
+  <td *ngIf="user.isEditing">
+    <input [(ngModel)]="user.name" />
+  </td>
+
+  <td *ngIf="!user.isEditing">{{ user.phone }}</td>
+  <td *ngIf="user.isEditing">
+    <input [(ngModel)]="user.phone" />
+  </td>
+
+  <td *ngIf="!user.isEditing">{{ user.email }}</td>
+  <td *ngIf="user.isEditing">
+    <input [(ngModel)]="user.email" />
+  </td>
+
+  <td>
+    <button *ngIf="!user.isEditing" (click)="onEdit(user)">&#9998; Edit</button>
+    <button *ngIf="user.isEditing" (click)="onUpdate(user)">&#10003; Update</button>
+    <button *ngIf="user.isEditing" (click)="onCancel(user)">Cancel</button>
+  </td>
+</tr>
+
+    </tbody>
+  </table>
+</div>
+
+
+
+
+
+</div>
+<div *ngIf="noUser" class="no-user-message">
+  No user with this email
+</div>

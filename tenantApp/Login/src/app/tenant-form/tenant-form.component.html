@@ -1,0 +1,66 @@
+<div class="form-container">
+  <h2>Customer Registration</h2>
+  <form [formGroup]="customerForm" (ngSubmit)="onSubmit()" class="customer-form">
+    
+    
+    <div class="form-group">
+      <label for="name">Full Name</label>
+      <input 
+        type="text" 
+        id="name" 
+        formControlName="name"
+        placeholder="Enter your full name"
+      >
+      <div *ngIf="customerForm.get('name')?.invalid && customerForm.get('name')?.touched" class="invalid-feedback">
+      <div *ngIf="customerForm.get('name')?.errors?.['required']">Name is required</div>
+      <div *ngIf="customerForm.get('name')?.errors?.['minlength']">
+        Name must be at least 3 characters
+      </div>
+    </div>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input 
+        type="email" 
+        id="email" 
+        formControlName="email"
+        placeholder="Enter your email"
+     
+      >
+     <div *ngIf="customerForm.get('email')?.invalid && customerForm.get('email')?.touched" class="invalid-feedback">
+      <div *ngIf="customerForm.get('email')?.errors?.['required']">Email is required</div>
+      <div *ngIf="customerForm.get('email')?.errors?.['email']">
+        Please enter a valid email
+      </div>
+    </div>
+    </div>
+
+    <div class="form-group">
+      <label for="phone">Phone Number</label>
+      <input 
+        type="number" 
+        id="phone" 
+        formControlName="phone"
+        placeholder="Enter 10-digit phone number"
+        
+      >
+     <div *ngIf="customerForm.get('phone')?.invalid && customerForm.get('phone')?.touched" class="invalid-feedback">
+      <div *ngIf="customerForm.get('phone')?.errors?.['required']">Phone is required</div>
+     <div *ngIf="customerForm.get('phone')?.errors?.['pattern'] && customerForm.get('phone')?.touched">
+      Please enter exactly 10 digits (no spaces or special characters)
+    </div>
+    </div>
+    </div>
+
+    <button 
+      type="submit" 
+      class="submit-btn"
+     
+    >
+      <span >Submit</span>
+
+    </button>
+    <!-- <button (click)="syncLocalToServer()">Sync Local Customers</button> -->
+  </form>
+</div>

@@ -1,0 +1,13 @@
+<div class="home-container">
+  <h1>Welcome to Our Application</h1>
+  
+  <div class="button-group">
+    <button (click)="onLogin()" class="btn btn-primary">Login</button>
+    <button (click)="onCreate()" class="btn btn-success">Create</button>
+    <button (click)="handleGetAllRecords()" class="btn btn-primary">Get All records</button>
+   <button (click)="syncNow()" class="btn btn-warning">🔄 Sync Now</button>
+  </div>
+
+  <div *ngIf="isOnline" class="status-text online">🟢 Online — Ready to sync</div>
+  <div *ngIf="!isOnline" class="status-text offline">🔴 Offline — Sync disabled</div>
+  </div>
